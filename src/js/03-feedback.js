@@ -8,25 +8,27 @@ form.addEventListener('submit', onFormSubmit);
 
 const formData = {};
 
+const STORAGE_KEY = 'feedback-form-state';
+
 function onFormData(e) {
     // у formData збираємо данні value під name ( тут у нас email та message)
     formData[e.target.name] = e.target.value; 
     // збергіаємо данні у об'єкт де будуть данні з formData( тобто  email та message )
-    localStorage.setItem('feedback-form-state', JSON.stringify(formData));     
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));     
 }
 
 function onFormSubmit(e) {
-    console.log(JSON.parse(localStorage.getItem('feedback-form-state')));
+    console.log(JSON.parse(localStorage.getItem(STORAGE_KEY)));
     e.preventDefault();
     e.currentTarget.reset();
-    localStorage.removeItem('feedback-form-state')
+    localStorage.removeItem(STORAGE_KEY)
     
 }
 
 // окрема ф. яке після перезавант надасть данні з локалСторедж
 function dataFromLocalStorage() {
     // в окрмему конст - парсимо у данні та через гетАйтем виводимо
-    const savedData = JSON.parse(localStorage.getItem('feedback-form-state'));
+    const savedData = JSON.parse(localStorage.getItem(STORAGE_KEY));
     // перевіряємо, якщо данні є, у email ставимо данніт з savedData.email та так само з message
     if (savedData) {       
         email.value = savedData.email;
